@@ -1,0 +1,17 @@
+{
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "extends",
+          "ignores"
+        ]
+      }
+    ],
+    "indentation": 2,
+    "block-closing-brace-newline-after": "always",
+    "declaration-colon-newline-after": null
+  }
+}
