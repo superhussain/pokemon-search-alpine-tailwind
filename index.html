@@ -9,10 +9,15 @@
       content="Simple Pokémon search app built using AlpineJS and TailwindCSS"
     />
 
+    <meta name="theme-color" content="#f87171" />
     <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png" />
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png" />
     <link rel="manifest" href="/site.webmanifest" />
+
+    <link rel="preconnect" href="https://raw.githubusercontent.com" />
+    <link rel="preconnect" href="https://pokewalls.files.wordpress.com" />
+    <link rel="preconnect" href="https://hybridshivam.com" />
 
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.0.2/dist/tailwind.min.css" />
@@ -31,18 +36,20 @@
       <div
         class="container relative z-10 max-w-2xl p-8 mx-auto text-center bg-white shadow-2xl lg:max-w-3xl bg-opacity-95 rounded-2xl sm:p-16"
       >
-        <h1 class="mb-6 font-mono text-3xl font-black text-red-400 uppercase sm:text-5xl title">
-          Pokémon Search
-        </h1>
+        <label>
+          <h1 class="mb-6 font-mono text-3xl font-black text-red-400 uppercase sm:text-5xl title">
+            Pokémon Search
+          </h1>
 
-        <input
-          type="text"
-          name="search"
-          placeholder="Search by name or number..."
-          x-model="search"
-          @input.debounce.500="whosThatPokemon()"
-          class="w-full max-w-md px-4 py-2 mb-2 text-xl font-light text-center text-red-900 transition rounded outline-none ring-2 ring-red-200 focus:ring-red-400"
-        />
+          <input
+            type="text"
+            name="search"
+            placeholder="Search by name or number..."
+            x-model="search"
+            @input.debounce.500="whosThatPokemon()"
+            class="w-full max-w-md px-4 py-2 mb-2 text-xl font-light text-center text-red-900 transition rounded outline-none ring-2 ring-red-200 focus:ring-red-400"
+          />
+        </label>
 
         <template x-if="loading">
           <div class="mt-8 text-xl font-light text-gray-400">Loading...</div>
@@ -57,27 +64,36 @@
             <img
               :src="pokemon.sprites.other['official-artwork'].front_default"
               :alt="pokemon.name"
-              class="w-full max-w-xs mx-auto"
+              class="object-contain w-64 h-64 max-w-full mx-auto sm:w-80 sm:h-80"
+              width="320"
+              height="320"
             />
-            <a :href="`https://pokemondb.net/pokedex/${pokemon.name}`" target="_blank">
-              <h3
+            <a
+              :href="`https://pokemondb.net/pokedex/${pokemon.name}`"
+              target="_blank"
+              rel="noreferrer noopener"
+            >
+              <h2
                 class="mb-5 font-mono text-3xl font-black text-indigo-500 uppercase transition transform sm:text-5xl pokemon-name hover:-translate-y-1 opacity-90 hover:opacity-100"
                 :style="`color: var(--${pokemon.types[0].type.name})`"
                 x-text="pokemon.name"
-              ></h3>
+              ></h2>
             </a>
             <template x-for="type in pokemon.types" :key="type.type.name">
               <a
                 :href="`https://pokemondb.net/type/${type.type.name}`"
                 target="_blank"
+                rel="noreferrer noopener"
                 class="inline-flex items-center justify-between px-2 py-2 m-1 text-left text-white uppercase transition transform rounded w-28 hover:-translate-y-1 opacity-90 hover:opacity-100"
                 :class="type.type.name"
               >
                 <span x-text="type.type.name" class="text-sm font-semibold"></span>
                 <img
-                  class="w-4 ml-2"
+                  class="w-4 h-4 ml-2"
                   :src="`https://hybridshivam.com/pokedex/assets/type-icons/png/${type.type.name}.png`"
                   :alt="type.type.name"
+                  width="16"
+                  height="16"
                 />
               </a>
             </template>
